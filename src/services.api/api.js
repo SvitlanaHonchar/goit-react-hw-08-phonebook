@@ -1,24 +1,55 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://64189bf829e7e36438ecce1f.mockapi.io/';
+// Utility to add JWT
+const setAuthHeader = token => {
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+};
 
-// const BASE_HEROKUAPP_URL = 'https://connections-api.herokuapp.com/';
-export const requestContacts = async () => {
-  const { data } = await axios.get(`${BASE_URL}contacts`);
+// Utility to remove JWT
+const clearAuthHeader = () => {
+  axios.defaults.headers.common.Authorization = '';
+};
+
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
+
+export const registerUser = async credentials => {
+  console.log('register credentials', credentials);
+  const { data } = await axios.post('/users/signup', credentials);
+  setAuthHeader(data.token);
   return data;
 };
 
-// export const requestContacts = async () => {
-//   const { data } = await axios.get(`${BASE_HEROKUAPP_URL}contacts`);
-//   return data;
-// };
+export const loginUser = async credentials => {
+  console.log('login credentials', credentials);
+  const { data } = await axios.post('/users/login', credentials);
+  setAuthHeader(data.token);
+  return data;
+};
 
-export const postContacts = async newContact => {
-  const { data } = await axios.post(`${BASE_URL}contacts`, newContact);
+export const logoutUser = async () => {
+  await axios.post('/users/logout');
+  clearAuthHeader();
+};
+
+export const refresh = async persistedToken => {
+  setAuthHeader(persistedToken);
+  const { data } = await axios.get('/users/current');
+  return data;
+};
+
+// contacts
+export const requestContacts = async () => {
+  const { data } = await axios.get('/contacts');
+  return data;
+};
+
+export const postContacts = async formData => {
+  console.log('adding contact:', formData);
+  const { data } = await axios.post('/contacts', formData);
   return data;
 };
 
 export const removeContacts = async contactId => {
-  const { data } = await axios.delete(`${BASE_URL}contacts/${contactId}`);
+  const { data } = await axios.delete(`/contacts/${contactId}`);
   return data;
 };

@@ -1,7 +1,26 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { requestRegister } from 'redux/user/operations';
 
 const RegisterForm = () => {
-  const handleSubmit = () => {};
+  const dispatch = useDispatch();
+  const handleSubmit = e => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    console.log(
+      form.elements.name.value,
+      form.elements.email.value,
+      form.elements.password.value
+    );
+    dispatch(
+      requestRegister({
+        name: form.elements.name.value,
+        email: form.elements.email.value,
+        password: form.elements.password.value,
+      })
+    );
+    form.reset();
+  };
 
   return (
     <>
@@ -18,7 +37,7 @@ const RegisterForm = () => {
           Password
           <input type="password" name="password" />
         </label>
-        <button type="submit">Log In</button>
+        <button type="submit">Register</button>
       </form>
     </>
   );

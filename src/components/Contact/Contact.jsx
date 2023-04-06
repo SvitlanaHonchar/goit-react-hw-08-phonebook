@@ -11,7 +11,7 @@ const Contact = ({ contact }) => {
 
   return (
     <>
-      👨🏻‍🦱 {contact.name}: {contact.phone}
+      👨🏻‍🦱 {contact.name}: {contact.number}
       <button onClick={onRemoveClick} type="button">
         Remove contact
       </button>

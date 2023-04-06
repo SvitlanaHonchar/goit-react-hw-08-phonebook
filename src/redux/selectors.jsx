@@ -3,6 +3,8 @@ import { createSelector } from '@reduxjs/toolkit';
 export const getContacts = state => state.contacts.items;
 export const getFilter = state => state.filter.value;
 export const getLoadingStatus = state => state.contacts.isLoading;
+export const getLoggedInStatus = state => state.users.isLoggedIn;
+export const getUser = state => state.users.user;
 
 export const getFilterSelector = createSelector(
   // Масив вхідних селекторів

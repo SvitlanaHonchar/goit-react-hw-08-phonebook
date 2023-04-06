@@ -1,5 +1,5 @@
-import { useSelector } from 'react-redux';
-import { getContacts, getLoadingStatus } from 'redux/selectors';
+// import { useSelector } from 'react-redux';
+// import { getContacts, getLoadingStatus } from 'redux/selectors';
 import { Route, Routes } from 'react-router-dom';
 // import ContactList from './ContactList/ContactList';
 // import Phonebook from './Phonebook/Phonebook';
@@ -14,10 +14,17 @@ import Login from 'pages/Login';
 import Register from 'pages/Register';
 import NotFound from 'pages/NotFound';
 import Contacts from 'pages/Contacts';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { requestRefresh } from 'redux/user/operations';
 
 const App = () => {
-  // const contacts = useSelector(getContacts);
-  // const isLoading = useSelector(getLoadingStatus);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(requestRefresh());
+  }, [dispatch]);
+
   return (
     <div
       style={{
@@ -39,16 +46,6 @@ const App = () => {
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
-      {/* <RegisterForm />
-      <LoginForm />
-      <Navigation />
-      <UserMenu />
-      <h2>Phonebook</h2>
-      <Phonebook />
-      <Filter />
-      <h2>Contacts</h2>
-      {isLoading && <Loader />}
-      {contacts.length === 0 ? <i>-- no contacts here --</i> : <ContactList />} */}
     </div>
   );
 };
