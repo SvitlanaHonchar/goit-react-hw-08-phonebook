@@ -1,31 +1,29 @@
-// import { useSelector } from 'react-redux';
-// import { getContacts, getLoadingStatus } from 'redux/selectors';
 import { Route, Routes } from 'react-router-dom';
-// import ContactList from './ContactList/ContactList';
-// import Phonebook from './Phonebook/Phonebook';
-// import Filter from './Filter/Filter';
-// import Loader from './Loader/Loader';
-// import RegisterForm from './RegisterForm/RegisterForm';
-// import LoginForm from './LoginForm/LoginForm';
-import Navigation from './Navigation/Navigation';
-// import UserMenu from './UserMenu/UserMenu';
-import Home from '../pages/Home';
-import Login from 'pages/Login';
-import Register from 'pages/Register';
-import NotFound from 'pages/NotFound';
-import Contacts from 'pages/Contacts';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, lazy, Suspense } from 'react';
 import { requestRefresh } from 'redux/user/operations';
+import { getLoadingUser } from 'redux/selectors';
+import Navigation from './Navigation/Navigation';
+import PrivateRoute from './UserMenu/PrivateRoute';
+import RestrictedRoute from './UserMenu/RestrictedRoute';
+
+const Home = lazy(() => import('../pages/Home'));
+const Login = lazy(() => import('pages/Login'));
+const Register = lazy(() => import('pages/Register'));
+const NotFound = lazy(() => import('pages/NotFound'));
+const Contacts = lazy(() => import('pages/Contacts'));
 
 const App = () => {
   const dispatch = useDispatch();
+  const isLoading = useSelector(getLoadingUser);
 
   useEffect(() => {
     dispatch(requestRefresh());
   }, [dispatch]);
 
-  return (
+  return isLoading ? (
+    <p>Refreshing User...</p>
+  ) : (
     <div
       style={{
         marginLeft: '20px',
@@ -37,15 +35,35 @@ const App = () => {
         color: '#010101',
       }}
     >
-      <Routes>
-        <Route path="/" element={<Navigation />}>
-          <Route index element={<Home />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="contacts" element={<Contacts />} />
-        </Route>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <Suspense>
+        <Routes>
+          <Route path="/" element={<Navigation />}>
+            <Route index element={<Home />} />
+            <Route
+              path="login"
+              element={
+                <RestrictedRoute component={<Login />} redirectTo="/contacts" />
+              }
+            />
+            <Route
+              path="register"
+              element={
+                <RestrictedRoute
+                  component={<Register />}
+                  redirectTo="/contacts"
+                />
+              }
+            />
+            <Route
+              path="contacts"
+              element={
+                <PrivateRoute component={<Contacts />} redirectTo="/login" />
+              }
+            />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
     </div>
   );
 };

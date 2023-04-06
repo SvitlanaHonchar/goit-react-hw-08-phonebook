@@ -1,10 +1,20 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import {
   requestLogin,
   requestLogout,
   requestRefresh,
   requestRegister,
 } from './operations';
+
+// array for getActions function
+const extraActions = [
+  requestLogin,
+  requestLogout,
+  requestRefresh,
+  requestRegister,
+];
+// function for isAnyOf in addMatchers
+const getActions = type => extraActions.map(action => action[type]);
 
 const userSlice = createSlice({
   // Ім'я слайсу
@@ -23,83 +33,43 @@ const userSlice = createSlice({
   extraReducers: builder =>
     builder
       // --------register user----------
-      .addCase(requestRegister.pending, state => {
-        state.error = null;
-        state.status = 'pending';
-        state.isLoading = true;
-      })
       .addCase(requestRegister.fulfilled, (state, { payload }) => {
-        console.log('requestRegister', payload);
-
-        state.error = null;
-        state.status = 'resolved';
-        state.isLoading = false;
         state.isLoggedIn = true;
         state.user = payload.user;
         state.token = payload.token;
-      })
-      .addCase(requestRegister.rejected, (state, { payload }) => {
-        state.status = 'rejected';
-        state.error = payload;
-        state.isLoading = false;
       })
       // ------------------login user --------------
-      .addCase(requestLogin.pending, state => {
-        state.error = null;
-        state.status = 'pending';
-        state.isLoading = true;
-      })
       .addCase(requestLogin.fulfilled, (state, { payload }) => {
         console.log('requestLogin', payload);
-
-        state.error = null;
-        state.status = 'resolved';
-        state.isLoading = false;
         state.isLoggedIn = true;
         state.user = payload.user;
         state.token = payload.token;
       })
-      .addCase(requestLogin.rejected, (state, { payload }) => {
-        state.status = 'rejected';
-        state.error = payload;
-        state.isLoading = false;
-      })
       // ------------------logout user --------------
-      .addCase(requestLogout.pending, state => {
-        state.error = null;
-        state.status = 'pending';
-        state.isLoading = true;
-      })
       .addCase(requestLogout.fulfilled, state => {
-        state.error = null;
-        state.status = 'resolved';
-        state.isLoading = false;
         state.isLoggedIn = false;
         state.user = { name: null, email: null };
         state.token = null;
       })
-      .addCase(requestLogout.rejected, (state, { payload }) => {
-        state.status = 'rejected';
-        state.error = payload;
-        state.isLoading = false;
-      })
       // ------------------refresh user --------------
-      .addCase(requestRefresh.pending, state => {
+      .addCase(requestRefresh.fulfilled, (state, { payload }) => {
+        state.isLoggedIn = true;
+        state.user = payload;
+      })
+      // ----addMatcher----
+      .addMatcher(isAnyOf(...getActions('pending')), state => {
         state.error = null;
         state.status = 'pending';
         state.isLoading = true;
       })
-      .addCase(requestRefresh.fulfilled, (state, { payload }) => {
-        state.error = null;
-        state.status = 'resolved';
-        state.isLoading = false;
-        state.isLoggedIn = true;
-        console.log(payload);
-        state.user = payload;
-      })
-      .addCase(requestRefresh.rejected, (state, { payload }) => {
+      .addMatcher(isAnyOf(...getActions('rejected')), (state, { payload }) => {
         state.status = 'rejected';
         state.error = payload;
+        state.isLoading = false;
+      })
+      .addMatcher(isAnyOf(...getActions('fulfilled')), state => {
+        state.error = null;
+        state.status = 'resolved';
         state.isLoading = false;
       }),
 });

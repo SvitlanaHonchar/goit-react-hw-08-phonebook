@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { StyledForm, StyledBtn } from './PhoneBook.styled';
-import { addContacts, fetchContacts } from 'redux/contactSlice';
 import { useDispatch } from 'react-redux';
 import { getContacts } from 'redux/selectors';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { addContacts, fetchContacts } from 'redux/contacts/operations';
 
 const Phonebook = () => {
   const [name, setName] = useState('');

@@ -7,6 +7,7 @@ const Home = () => {
       <img
         src="https://cdn.dribbble.com/users/995553/screenshots/2589741/4.gif"
         alt="let's get started"
+        width="200px"
       />
     </div>
   );
