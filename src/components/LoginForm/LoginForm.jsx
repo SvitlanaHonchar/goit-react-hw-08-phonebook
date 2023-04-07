@@ -1,6 +1,10 @@
+import { Button, TextField } from '@mui/material';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { requestLogin } from 'redux/user/operations';
+import { StyledForm, StyledH2 } from './LoginForm.styled';
+import { theme } from '../../helpers/theme';
+import { ThemeProvider } from '@mui/material/styles';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -18,19 +22,34 @@ const LoginForm = () => {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit} autoComplete="off">
+    <ThemeProvider theme={theme}>
+      <StyledH2>- Log In -</StyledH2>
+      <StyledForm onSubmit={handleSubmit} autoComplete="off">
         <label>
-          Email
-          <input type="email" name="email" />
+          <TextField
+            id="outlined-basic"
+            label="Email"
+            variant="outlined"
+            color="primary"
+            type="email"
+            name="email"
+          />
         </label>
         <label>
-          Password
-          <input type="password" name="password" />
+          <TextField
+            id="outlined-basic"
+            label="Password"
+            variant="outlined"
+            color="primary"
+            type="password"
+            name="password"
+          />
         </label>
-        <button type="submit">Log In</button>
-      </form>
-    </>
+        <Button variant="outlined" color="secondary" type="submit">
+          Log In
+        </Button>
+      </StyledForm>
+    </ThemeProvider>
   );
 };
 

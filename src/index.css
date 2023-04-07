@@ -2,11 +2,20 @@
 
 body {
   margin: 0;
+  /* background-color: #f7ede8; */
+  background-image: url('../src/images/bcg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+main {
+  padding-bottom: 2.5rem;
 }
 
 code {
@@ -85,4 +94,29 @@ code {
   50% {
     opacity: 0.5;
   }
+}
+
+.refreshing-user {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px 0px;
+
+  align-items: center;
+  justify-content: center;
+  margin: 30px auto 30px auto;
+
+  /* padding: 5px; */
+  list-style: none;
+  max-width: 500px;
+
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+
+  border: 1.5px solid #000000;
+  box-shadow: 6px 6px 0px rgba(129, 173, 200, 0.5);
+  border-radius: 8px;
 }

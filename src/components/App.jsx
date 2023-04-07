@@ -6,6 +6,7 @@ import { getLoadingUser } from 'redux/selectors';
 import Navigation from './Navigation/Navigation';
 import PrivateRoute from './UserMenu/PrivateRoute';
 import RestrictedRoute from './UserMenu/RestrictedRoute';
+import Footer from './Footer/Footer';
 
 const Home = lazy(() => import('../pages/Home'));
 const Login = lazy(() => import('pages/Login'));
@@ -22,7 +23,7 @@ const App = () => {
   }, [dispatch]);
 
   return isLoading ? (
-    <p>Refreshing User...</p>
+    <p className="refreshing-user">Refreshing User...</p>
   ) : (
     <div
       style={{
@@ -33,40 +34,47 @@ const App = () => {
         // alignItems: 'flex-start',
         // fontSize: 30,
         fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif'",
-
-        height: '100vw',
-        backgroundColor: '#F7EDE8',
+        position: 'relative',
+        minHeight: '100vh',
+        // height: '100vw',
+        // backgroundColor: '#F7EDE8',
       }}
     >
-      <Suspense>
-        <Routes>
-          <Route path="/" element={<Navigation />}>
-            <Route index element={<Home />} />
-            <Route
-              path="login"
-              element={
-                <RestrictedRoute component={<Login />} redirectTo="/contacts" />
-              }
-            />
-            <Route
-              path="register"
-              element={
-                <RestrictedRoute
-                  component={<Register />}
-                  redirectTo="/contacts"
-                />
-              }
-            />
-            <Route
-              path="contacts"
-              element={
-                <PrivateRoute component={<Contacts />} redirectTo="/login" />
-              }
-            />
-          </Route>
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Suspense>
+      <main>
+        <Suspense>
+          <Routes>
+            <Route path="/" element={<Navigation />}>
+              <Route index element={<Home />} />
+              <Route
+                path="login"
+                element={
+                  <RestrictedRoute
+                    component={<Login />}
+                    redirectTo="/contacts"
+                  />
+                }
+              />
+              <Route
+                path="register"
+                element={
+                  <RestrictedRoute
+                    component={<Register />}
+                    redirectTo="/contacts"
+                  />
+                }
+              />
+              <Route
+                path="contacts"
+                element={
+                  <PrivateRoute component={<Contacts />} redirectTo="/login" />
+                }
+              />
+            </Route>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </main>
+      <Footer />
     </div>
   );
 };

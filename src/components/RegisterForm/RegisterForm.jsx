@@ -1,6 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { requestRegister } from 'redux/user/operations';
+import { StyledForm, StyledH2 } from './RegisterForm.styled';
+import { theme } from '../../helpers/theme';
+import { ThemeProvider } from '@mui/material/styles';
+import { Button, TextField } from '@mui/material';
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -23,23 +27,44 @@ const RegisterForm = () => {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit} autoComplete="off">
+    <ThemeProvider theme={theme}>
+      <StyledH2>- Register -</StyledH2>
+      <StyledForm onSubmit={handleSubmit} autoComplete="off">
         <label>
-          Name
-          <input type="text" name="name" />
+          <TextField
+            id="outlined-basic"
+            label="Name"
+            variant="outlined"
+            color="primary"
+            type="text"
+            name="name"
+          />
         </label>
         <label>
-          Email
-          <input type="email" name="email" />
+          <TextField
+            id="outlined-basic"
+            label="Email"
+            variant="outlined"
+            color="primary"
+            type="email"
+            name="email"
+          />
         </label>
         <label>
-          Password
-          <input type="password" name="password" />
+          <TextField
+            id="outlined-basic"
+            label="Password"
+            variant="outlined"
+            color="primary"
+            type="password"
+            name="password"
+          />
         </label>
-        <button type="submit">Register</button>
-      </form>
-    </>
+        <Button variant="contained" color="primary" type="submit">
+          Register
+        </Button>
+      </StyledForm>
+    </ThemeProvider>
   );
 };
 

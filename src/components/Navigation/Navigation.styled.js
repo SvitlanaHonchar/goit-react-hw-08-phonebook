@@ -1,11 +1,15 @@
 import styled from 'styled-components';
 
+export const StyledSection = styled.section`
+  box-shadow: 0 4px 5px -4px rgba(129, 173, 200, 0.5);
+  background-color: #f7ede8;
+`;
 export const StyledHeader = styled.header`
   margin-left: auto;
   margin-right: auto;
 
   max-width: 1200px;
-  box-shadow: 0 4px 5px 0px rgba(129, 173, 200, 0.5);
+  /* box-shadow: 0 4px 5px -4px rgba(129, 173, 200, 0.5); */
 `;
 
 export const StyledNav = styled.nav`

@@ -13,10 +13,10 @@ export const StyledLi = styled.li`
   border: 1.5px solid #cd4631;
   border-radius: 8px;
 
-  background-color: rgba(205, 70, 49, 0.1);
+  background-color: #fcd9d4;
 
   &:nth-child(even) {
-    background-color: rgba(129, 173, 200, 0.5);
+    background-color: #c1d4e0;
     border: 1.5px solid rgb(129, 173, 200);
   }
 
