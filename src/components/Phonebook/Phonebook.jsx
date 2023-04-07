@@ -1,10 +1,13 @@
 import { useState } from 'react';
-import { StyledForm, StyledBtn } from './PhoneBook.styled';
+import { StyledForm, StyledH2 } from './PhoneBook.styled';
 import { useDispatch } from 'react-redux';
 import { getContacts } from 'redux/selectors';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { addContacts, fetchContacts } from 'redux/contacts/operations';
+import { Button, TextField } from '@mui/material';
+import { theme } from '../../helpers/theme';
+import { ThemeProvider } from '@mui/material/styles';
 
 const Phonebook = () => {
   const [name, setName] = useState('');
@@ -53,11 +56,16 @@ const Phonebook = () => {
   };
 
   return (
-    <div>
+    <ThemeProvider theme={theme}>
+      <StyledH2>- Manage PhoneBook -</StyledH2>
+
       <StyledForm onSubmit={handleSubmit}>
         <label htmlFor="">
-          <span>Name</span>
-          <input
+          <TextField
+            id="outlined-basic"
+            label="Name"
+            variant="outlined"
+            color="secondary"
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -69,8 +77,11 @@ const Phonebook = () => {
           />
         </label>
         <label htmlFor="">
-          <span>Number</span>
-          <input
+          <TextField
+            id="outlined-basic"
+            label="Number"
+            variant="outlined"
+            color="secondary"
             type="tel"
             name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -81,9 +92,11 @@ const Phonebook = () => {
             required
           />
         </label>
-        <StyledBtn type="submit">Add contact</StyledBtn>
+        <Button type="submit" variant="contained" color="secondary">
+          Add contact
+        </Button>
       </StyledForm>
-    </div>
+    </ThemeProvider>
   );
 };
 

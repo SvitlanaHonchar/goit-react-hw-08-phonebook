@@ -2,32 +2,48 @@ import styled from 'styled-components';
 
 export const StyledLi = styled.li`
   display: flex;
-  /* justify-content: center; */
+  flex-direction: column;
   align-items: center;
+  justify-content: space-around;
 
-  padding: 20px;
+  padding: 10px;
+  gap: 10px;
+  width: 200px;
+  height: 200px;
+  border: 1.5px solid #cd4631;
+  border-radius: 8px;
 
-  font-size: 20px;
-  font-weight: 500;
+  background-color: rgba(205, 70, 49, 0.1);
 
-  & button {
-    margin-left: 10px;
+  &:nth-child(even) {
+    background-color: rgba(129, 173, 200, 0.5);
+    border: 1.5px solid rgb(129, 173, 200);
+  }
 
-    &:focus {
-      background-color: #c7dcff;
-    }
+  & p {
+    margin: 0;
+  }
 
-    &:hover {
-      background-color: #c7dcff;
-    }
+  & .contact-icon {
+    font-size: 30px;
   }
 `;
 
 export const StyledOl = styled.ol`
-  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 20px;
+
+  margin: 0px auto 30px auto;
 
   padding: 0;
 
   font-size: 20px;
   font-weight: 500;
+`;
+
+export const StyledH2 = styled.h2`
+  text-align: center;
 `;

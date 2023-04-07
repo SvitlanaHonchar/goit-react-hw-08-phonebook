@@ -26,13 +26,16 @@ const App = () => {
   ) : (
     <div
       style={{
-        marginLeft: '20px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-        fontSize: 30,
-        color: '#010101',
+        // marginLeft: '20px',
+        // display: 'flex',
+        // flexDirection: 'column',
+        // justifyContent: 'center',
+        // alignItems: 'flex-start',
+        // fontSize: 30,
+        fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif'",
+
+        height: '100vw',
+        backgroundColor: '#F7EDE8',
       }}
     >
       <Suspense>

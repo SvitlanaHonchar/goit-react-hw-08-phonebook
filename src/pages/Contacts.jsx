@@ -6,10 +6,9 @@ import React from 'react';
 const Contacts = () => {
   return (
     <>
-      <h2>Phonebook</h2>
       <Phonebook />
       <Filter />
-      <h2>Contacts</h2>
+
       <ContactList />
     </>
   );
