@@ -44,7 +44,9 @@ const Navigation = () => {
           </StyledHeader>
         </StyledSection>
       </ThemeProvider>
-      <Outlet />
+      <main>
+        <Outlet />
+      </main>
     </>
   );
 };

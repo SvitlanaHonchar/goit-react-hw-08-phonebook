@@ -44,6 +44,7 @@ export const StyledDiv = styled.div`
   letter-spacing: 0.02857em;
   text-transform: uppercase;
 
+  background-color: #f7ede8;
   border: 1.5px solid #000000;
   box-shadow: 6px 6px 0px rgba(129, 173, 200, 0.5);
   border-radius: 8px;
