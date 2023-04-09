@@ -13,14 +13,14 @@ const clearAuthHeader = () => {
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
 
 export const registerUser = async credentials => {
-  console.log('register credentials', credentials);
+  // console.log('register credentials', credentials);
   const { data } = await axios.post('/users/signup', credentials);
   setAuthHeader(data.token);
   return data;
 };
 
 export const loginUser = async credentials => {
-  console.log('login credentials', credentials);
+  // console.log('login credentials', credentials);
   const { data } = await axios.post('/users/login', credentials);
   setAuthHeader(data.token);
   return data;
@@ -44,7 +44,7 @@ export const requestContacts = async () => {
 };
 
 export const postContacts = async formData => {
-  console.log('adding contact:', formData);
+  // console.log('adding contact:', formData);
   const { data } = await axios.post('/contacts', formData);
   return data;
 };

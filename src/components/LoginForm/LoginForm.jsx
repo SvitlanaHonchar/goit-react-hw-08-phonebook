@@ -11,7 +11,7 @@ const LoginForm = () => {
   const handleSubmit = e => {
     e.preventDefault();
     const form = e.currentTarget;
-    console.log(form.elements.email.value, form.elements.password.value);
+    // console.log(form.elements.email.value, form.elements.password.value);
     dispatch(
       requestLogin({
         email: form.elements.email.value,
